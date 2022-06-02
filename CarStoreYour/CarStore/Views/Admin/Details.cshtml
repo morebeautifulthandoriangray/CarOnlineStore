@@ -1,0 +1,51 @@
+﻿@using CarStore.Domain.Entities
+@model IEnumerable<CarStore.Models.CarDTO>
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@{
+    List<string> dateTimes = new List<string>();
+    foreach(var item in Model)
+    {
+        dateTimes.Add(item.dateTime.ToString("u"));
+    }
+    var dateList = dateTimes.Distinct<string>();
+    }
+@foreach (var datetime in @dateList)
+    {
+<h1>Заказ</h1>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        if (item.dateTime.ToString("u").Equals(datetime) == true)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+        </tr>
+        }
+    }
+
+</table>
+}
